@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://dev.3r60.top/package.js"></script>
+    <title></title>
+</head>
+<body>
+    <topbar></topbar>
+    <main class="flex pb-0">
+		<lead></lead>
+		<content>
+		<h1>弹出提示测试</h1>
+		<p>alert</p>
+		<button class="btn btn-primary btn-md" onclick="createDialog('alert', 'primary', '通知消息', '收到一条来自系统的通知', () => createMessage('点击了确认','primary'))">通知消息</button>
+		<button class="btn btn-danger btn-md" onclick="createDialog('alert', 'danger', '警告消息', '输入的用户名不存在', () => createMessage('点击了确认','danger'))">警告消息</button>
+		<button class="btn btn-success btn-md" onclick="createDialog('alert', 'success', '成功消息', '账户注册成功', () => createMessage('点击了确认','success'))">成功消息</button>
+		<button class="btn btn-md" onclick="createDialog('alert', '', '调试信息', '这是一条来自后端的消息', () => createMessage('点击了确认'))">调试信息</button>
+		<p>message</p>
+		<button class="btn btn-primary-e btn-md" onclick="createMessage('收到一条通知消息','primary')">右侧通知</button>
+		<button class="btn btn-danger-e btn-md" onclick="createMessage('输入的用户名不存在','danger')">右侧警告</button>
+		<button class="btn btn-success-e btn-md" onclick="createMessage('账户注册成功','success')">右侧成功</button>
+		<p>confirm</p>
+		<button class="btn btn-primary btn-md" onclick="createDialog('confirm', 'primary', '通知消息', '收到一条来自系统的通知', () => createMessage('点击了确认','primary'), () => createMessage('点击了取消','primary'))">通知消息</button>
+		<button class="btn btn-danger btn-md" onclick="createDialog('confirm', 'danger', '警告消息', '输入的用户名不存在', () => createMessage('点击了确认','danger'), () => createMessage('点击了取消','danger'))">警告消息</button>
+		<button class="btn btn-success btn-md" onclick="createDialog('confirm', 'success', '成功消息', '账户注册成功', () => createMessage('点击了确认','success'), () => createMessage('点击了取消','success'))">成功消息</button>
+		<button class="btn btn-md" onclick="createDialog('confirm', '', '调试信息', '这是一条来自后端的消息', () => createMessage('点击了确认'), () => createMessage('点击了取消'))">调试信息</button>
+		<p>type</p>
+		<button class="btn btn-primary btn-md" onclick="createDialog('type', 'primary', '输入文本', '文本对话框测试', (text) => createMessage('输入了‘'+text+'‘','primary'), () => createMessage('点击了取消','primary'), true, '输入啥都可以哦')">通知消息</button>
+		<button class="btn btn-danger btn-md" onclick="createDialog('type', 'danger', '输入文本', '文本对话框测试', (text) => createMessage('输入了‘'+text+'‘','danger'), () => createMessage('点击了取消','danger'), true, '输入啥都可以哦')">警告消息</button>
+		<button class="btn btn-success btn-md" onclick="createDialog('type', 'success', '输入文本', '文本对话框测试', (text) => createMessage('输入了‘'+text+'‘','success'), () => createMessage('点击了取消','success'), true, '输入啥都可以哦')">成功消息</button>
+		<button class="btn btn-md" onclick="createDialog('type', '', '输入文本', '文本对话框测试', (text) => createMessage('输入了‘'+text+'‘',''), () => createMessage('点击了取消',''), true, '输入啥都可以哦')">调试信息</button>
+		</content>
+	</main>
+</body>
+</html>

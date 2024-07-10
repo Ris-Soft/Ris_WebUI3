@@ -1,0 +1,90 @@
+/* 腾瑞思智 用户界面样式 版本3 深色模式*/
+/* Created By PYLXU */
+
+/*主体*/
+body {
+	background-color: #000000;
+	color: white;
+}
+
+/*按钮*/
+.btn-shadow {
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+}
+.btn-shadow:hover {
+  box-shadow: 0 6px 8px rgba(255, 255, 255, 0.15);
+}
+.btn-circle {
+        background-color: rgb(113 113 113);
+    color: black;
+}
+.btn-white {
+  background-color: rgb(43, 43, 43);
+  border: 1px solid  rgb(43, 43, 43);
+  color: white;
+}
+
+/*顶栏*/
+topbar {
+	background-color: rgb(43, 43, 43);
+	/* box-shadow: 0 2px 4px rgb(83 83 83 / 50%); */
+  border-bottom: 1px solid #5a5a5a;
+    color: white;
+}
+.miniNavBar {
+    background-color: rgb(43, 43, 43);
+}
+
+
+/*底栏*/
+footer {
+	background-color: #252525;
+	border-top: 1px solid #404040;
+}
+
+/* 对话框样式 */
+.dialog-box {
+  background-color: #000000;
+  box-shadow: 0 2px 10px rgba(187, 185, 185, 0.274);
+}
+.dialog-header h3 {
+  color: #ffffff;
+}
+.dialog-body {
+  color: #c4c4c4;
+}
+
+
+/*导航栏*/
+lead {
+	background-color: rgb(43, 43, 43);
+}
+ .list li a {
+  text-decoration: none;
+  color: #f3f3f3;
+}
+.list li a:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* 鼠标悬停时的背景色 */
+}
+
+.list li a.active {
+  color: white;
+  background-color: var(--color-success); /* 激活状态的背景色 */
+}
+
+/*消息框*/
+.message {
+  border-top: 1px solid #5a5a5a;
+  border-right: 1px solid #5a5a5a;
+  border-bottom: 1px solid #5a5a5a;
+  background-color: #474747;
+}
+
+/*文本编辑框*/
+.textEditor {
+	color: white;
+    border: 1px solid rgba(199, 199, 199, 0.2);
+}
+.textEditor option {
+    color: black;
+}

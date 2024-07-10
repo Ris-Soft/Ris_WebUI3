@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://dev.3r60.top/package.js"></script>
+    <title></title>
+</head>
+<body>
+    <topbar></topbar>
+    <main class="flex pb-0">
+		<lead></lead>
+		<content>
+		<h1>表单样式展示</h1>
+		<p>文本输入框、下拉式选择框</p>
+        <form action="#" method="POST">
+            <label for="name">姓名:</label>
+            <input type="text" id="name" class="textEditor textEditor-success" placeholder="请输入姓名">
+            
+            <label for="name">种类:</label>
+            <select type="select" id="kind" class="textEditor textEditor-success">
+                <option value="people">人类</option>
+                <option value="dog">沃尔玛购物袋</option>
+                <option value="gksgthh">喷气式飞机</option>
+            </select>
+    
+            <label for="email">邮箱:</label>
+            <input type="email" id="email" class="textEditor textEditor-success" placeholder="请输入邮箱地址">
+    
+            <label for="message">留言:</label>
+            <textarea id="message" class="textEditor textEditor-success" rows="4" placeholder="请输入您的留言..."></textarea>
+            
+            <button type="submit" class="btn btn-shadow btn-success btn-md">提交</button>
+</form>
+		</content>
+	</main>
+</body>
+</html>

@@ -1,0 +1,87 @@
+/* 腾瑞思智 用户界面样式 版本3 按钮样式 */
+/* Created By PYLXU */
+
+.btn {
+  display: inline-block;
+  padding: 0.8em 1.6em;
+  border: none;
+  border-radius: 0.5rem; 
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease; 
+}
+
+.btn-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-circle {
+    height: 25px;
+    width: 25px;
+    padding: 1px;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, .05);
+    color: black;
+    border: none;
+    font-size: 1.2rem;
+}
+
+/* 尺寸调整，统一命名规范 */
+.btn-sm { font-size: 1rem; padding: 0.5em 1em; }
+.btn-md { font-size: 1.2rem; padding: 0.7em 1.4em; }
+.btn-lg { font-size: 1.4rem; padding: 0.9em 1.8em; }
+
+/* 颜色类，加入渐变 */
+.btn-primary-e {
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+.btn-danger-e {
+  background-color: transparent;
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+}
+.btn-success-e {
+  background-color: transparent;
+  border: 1px solid var(--color-success);
+  color: var(--color-success);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: white;
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+  color: white;
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  border: 1px solid var(--color-success);
+  color: white;
+}
+
+.btn-white {
+  background-color:  rgba(231, 231, 231, 1);
+  border: 1px solid  rgba(231, 231, 231, 1);
+  color: black;
+}
+
+/* 鼠标悬停时改变透明度和稍微改变阴影，增加互动感 */
+.btn:hover {
+  opacity: 0.7;
+}
+.btn-shadow:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 文字在鼠标悬停时的微妙提升 */
+.btn:hover {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,404 @@
+/* 腾瑞思智 用户界面样式 版本3*/
+/* Created By PYLXU */
+
+/* 全局部分 */
+html {
+    font-size: 62.5%;
+}
+body {
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Arial', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    background-color: #f3f3f3; 
+    color: #333;
+}
+
+
+/*图标*/
+.bi {
+    margin: 4px;
+}
+
+/* TopBar部分 */
+topbar {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+  background-color: rgba(231, 231, 231, 1);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: black;
+  /*padding: 0 1rem;*/
+  /* box-shadow: 0 2px 4px rgba(182, 182, 182, 0.5); */
+  border-bottom: 1px solid #dddddd;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.3s;
+}
+topbar h1 {
+  margin: 0;
+  margin-left: 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+topbar h1 a {
+  font-size: 20px;
+  font-weight: 700;
+}
+topbar ul {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+topbar .navLeft {
+  left: 0;
+  position: absolute;
+}
+topbar .navRight {
+  right: 20px;
+  position: absolute;
+}
+topbar .navCenter {}
+topbar li {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+topbar>.navCenter>li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+topbar a{
+  font-weight: 700;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s;
+  font-weight: 500;
+}
+topbar li:hover::after , topbar li.active::after {
+    position: relative;
+    bottom: -10px;
+    display: block;
+    width: 82%;
+    height: 2px;
+    content: '';
+    background: var(--color-success);
+    left: 10%;
+}
+topbar a:hover,
+topbar a:focus {
+  color: var(--color-success);
+  outline: none;
+  text-decoration: none;
+}
+.miniNavBar {
+    position: fixed;
+    top: 56px;
+      background-color: rgba(231, 231, 231, 1);
+    width: 100vw;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    padding-top: 10px;
+}
+.miniNavBar .list li a.active {
+  color: white;
+  background-color: var(--color-success); /* 激活状态的背景色 */
+}
+
+/* 适配移动设备 */
+@media (max-width: 768px) {
+
+  topbar {
+    height: 56px;
+    flex-direction: column;
+    overflow-y: hidden;
+
+  }
+  topbar ul {
+      margin-top: 3px;
+      width: 90vw;
+      flex: 1;
+  }
+  topbar h1 {
+      margin-top: 3px;
+      margin-left: 0px;
+  }
+  topbar .navCenter {
+     display: none;
+    }
+  topbar .navRight {
+     justify-content: flex-end;
+     width: 50%;
+     right: 0px;
+    }
+}
+
+/* Main部分 */
+main {
+	padding: 64px 5px 20px;
+}
+main index {
+	padding: 120px 5px 120px;
+	width: 100%;
+	text-align: center;
+}
+main index h1 {
+	font-size: 48px;
+}
+main index h2 {
+	font-size: 38px;
+}
+main index h3 {
+	font-size: 28px;
+}
+
+/* Footer部分 */
+footer {
+  background-color: #f8f9fa; 
+  color: #6c757d; 
+  padding: 2rem 1rem; 
+  text-align: center;
+  font-size: 1.5rem; 
+  border-top: 1px solid #dee2e6;
+}
+/* 页脚链接样式 */
+footer ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 1rem; 
+}
+footer li {
+  display: inline-block;
+  margin-right: 1rem; 
+}
+footer a {
+  color: inherit; 
+  transition: color 0.3s ease;
+}
+footer a:hover {
+  color: #007bff;
+}
+footer p {
+  margin-top: 0;
+  font-size: 1.4rem;
+}
+
+
+
+/* 对话框样式 */
+.dialog-box {
+  position: fixed; 
+  z-index: 1000;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff; 
+  border-radius: 5px; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  width: 80%; 
+  max-width: 300px; 
+  text-align: center;
+  border-top: 2px solid #16b777;
+  animation: fadeIn 0.3s ease;
+}
+/* 对话框标题样式 */
+.dialog-header h3 {
+  margin: 0 0 10px; 
+  font-size: 18px;
+  color: #333;
+}
+/* 对话框内容样式 */
+.dialog-body {
+  margin-bottom: 15px; 
+  color: #666;
+  line-height: 1.5;
+}
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(95 95 95 / 61%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease-out;
+  z-index: 1000;
+}
+
+
+
+/* 文本页面样式 */
+lead {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  padding-top: 65px;
+  width: 250px;
+  min-width: 250px;
+  max-width: 250px;
+  overflow-y: clip; 
+  background-color: rgba(231, 231, 231, 1);
+  padding-bottom: 50px;
+}
+lead footer {
+  position: fixed;
+  bottom: 0px;
+  width: 250px;
+  min-width: 250px;
+  max-width: 250px;
+  padding-left: 0%;
+  padding-right: 0%;
+}
+#leadToggleBtn {
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    padding: 0px;
+    position: absolute;
+    top: 70px;
+    right: -40px;
+}
+content {
+  margin-left: 250px;
+  padding: 20px; 
+  overflow-y: auto;
+}
+.list {
+list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    height: calc(100% - 80px);
+}
+.list li a{
+  padding: 10px 20px; /* 内边距使点击区域更舒适 */
+  cursor: pointer; /* 鼠标悬停时改变指针形状 */
+  transition: background-color 0.3s ease; /* 平滑过渡背景颜色 */
+  color: #2b2b2b;
+    display: block;
+    text-decoration: none;
+    margin: 4px 15px;
+    border-radius: 5px;
+}
+.list li a:hover {
+  color: #16b777;
+  background-color: rgba(0, 0, 0, 0.1); /* 鼠标悬停时的背景色 */
+}
+.list span {
+  margin: 15px 0px 20px 20px;
+  font-size: 12px;
+}
+/* 目录项激活状态（例如，当前页面对应的链接） */
+.list li a.active {
+  color: white;
+  background-color: var(--color-success); /* 激活状态的背景色 */
+}
+@media (max-width: 768px) {
+  lead {
+left: -250px;
+  }
+  content {
+  margin-left: 0px !important;
+}
+}
+
+
+/* 编辑框样式 */
+.textEditor {
+  box-sizing:border-box;
+  padding: 8px;
+  /* box-shadow: 0 2px 6px rgba(0,0,0,0.2); */
+    display: inline-block;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+    background-color: transparent;
+}
+.textEditor:focus {
+    outline: none;
+}
+.textEditor-primary:focus {
+  border: 1px solid var(--color-primary);
+}
+.textEditor-danger:focus {
+  border: 1px solid var(--color-danger);
+}
+.textEditor-success:focus {
+  border: 1px solid var(--color-success);
+}
+.textEditor option:focus {
+    background-color: var(--color-success);
+    border-radius: 5px;
+    color: white;
+}
+
+
+/* 消息容器样式 */
+.message-container {
+  position: fixed;
+  top: 80px;
+  /* right: 100%; */
+  z-index: 1002;
+  max-width: 300px;
+  transition: right 0.3s ease; /* 控制滑动动画 */
+}
+
+/* 单个消息样式 */
+.message {
+  background-color: #f9f9f9;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  animation: fadeIn 0.3s ease;
+  min-width: 250px;
+}
+.message-primary {
+  border-left: 3px solid var(--color-primary);
+}
+.message-danger {
+  border-left: 3px solid var(--color-danger);
+}
+.message-success {
+  border-left: 3px solid var(--color-success);
+}
+
+#progressBar {
+    width: 100%;
+    height: 4px;
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+#progressBar .bar {
+    width: 0%;
+    height: 100%;
+    background-color: var(--color-success);
+    transition: width 0.5s ease-in-out;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

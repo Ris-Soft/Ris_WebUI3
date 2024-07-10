@@ -1,0 +1,21 @@
+[
+    {
+        "type": "text",
+        "text": "基本组件"
+    },
+    {
+        "type": "link",
+        "text": "按钮样式",
+        "href": "https://dev.3r60.top/template/index.html"
+    },
+    {
+        "type": "link",
+        "text": "弹窗样式",
+        "href": "https://dev.3r60.top/template/dialog.html"
+    },
+    {
+        "type": "link",
+        "text": "表单样式",
+        "href": "https://dev.3r60.top/template/form.html"
+    }
+]
