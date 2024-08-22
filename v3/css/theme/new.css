@@ -1,0 +1,55 @@
+/* iOS 6 Style Light Theme */
+
+/* 主体 */
+
+
+/* 按钮 */
+
+/* 顶栏 */
+topbar {
+    margin: 10px;
+    width: calc(100% - 20px);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(200, 200, 200, 0.4);
+	background-color: rgb(255, 255, 255);
+}
+
+
+/* 底栏 */
+
+
+/* 对话框样式 */
+
+
+/* 导航栏 */
+lead {
+	background-color: transparent;
+}
+.list {
+	background-color: rgb(255, 255, 255);
+	padding-top: 10px;
+	margin: 10px;
+	margin-right: 0px;
+	border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(200, 200, 200, 0.4);
+}
+lead footer {
+	margin: 10px;
+    border-radius: 10px;
+    width: 240px;
+    min-width: 154px;
+    max-width: 250px;
+	border: none;
+	background-color: rgb(255, 255, 255);
+}
+/* 消息框 */
+
+/* 文本编辑框 */
+
+/* 卡片 */
+card {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 10px rgba(200, 200, 200, 0.4);
+}
+
+/* 标签 */

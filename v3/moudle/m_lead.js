@@ -1,51 +1,55 @@
 var tempTitle = document.title;
-    var $lead = $('lead');
-    var currentUrl = window.location.href;
-    if ($lead.length) {
-        if (!$lead.children().length) {
-            $lead.append('<ul class="list"></ul><footer></footer>');
-        }
-        $lead.append('<button class="btn btn-shadow btn-white btn-sm" id="leadToggleBtn"><i class="bi bi-text-indent-right"></i></button>');
-    } else {
-        console.log('未找到<lead>元素，侧栏创建操作被忽略。');
+var $lead = $('lead');
+if ($lead.length) {
+    if (!$lead.children().length) {
+        $lead.append('<ul class="list"></ul><footer></footer>');
     }
+    $lead.append('<button class="btn btn-shadow btn-white btn-sm" id="leadToggleBtn"><i class="bi bi-text-indent-right"></i></button>');
+}
+var currentUrl = window.location.href;
+var $toggleBtn = $('#leadToggleBtn');
+if ($lead.css('left') === '-250px') {
+    $toggleBtn.find('i').removeClass('bi-text-indent-right').addClass('bi-text-indent-left');
+}
 
-    var $toggleBtn = $('#leadToggleBtn');
-    if ($lead.css('left') === '-250px') {
-        $toggleBtn.find('i').removeClass('bi-text-indent-right').addClass('bi-text-indent-left');
-    }
+$toggleBtn.on('click', function () {
+    var currentLeft = parseInt($lead.css('left'), 10);
+    var newLeft = (currentLeft === 0) ? -250 : 0;
+    var duration = 300;
 
-    $toggleBtn.on('click', function() {
-        var currentLeft = parseInt($lead.css('left'), 10);
-        var newLeft = (currentLeft === 0) ? -250 : 0;
-        var duration = 300; // 动画持续时间
-
-        // 动画处理
-        $({left: currentLeft}).animate({left: newLeft}, {
-            duration: duration,
-            step: function(now) {
-                $lead.css('left', now);
-                $('content').css('marginLeft', 250 + now);
-            },
-            complete: function() {
-                $toggleBtn.find('i').toggleClass('bi-text-indent-left bi-text-indent-right');
-            }
-        });
-    });
-
-    function setActiveLinkInList($list) {
-        currentUrl = window.location.href;
-        $list.find('li a').each(function() {
-            var $this = $(this);
-            var href = new URL($this.attr('href'),currentUrl ).toString();
-            if (href === currentUrl || href === currentUrl + 'index.html') {
-                $this.addClass('active');
-                document.title = $this.text() + ' - ' + tempTitle;
+    $({ left: currentLeft }).animate({ left: newLeft }, {
+        duration: duration,
+        step: function (now) {
+            $lead.css('left', now);
+            $('content').css('marginLeft', 250 + now);
+            if (window.innerWidth > 768) {
+                $('content').css('width', $(window).width() - (310 + now));
             } else {
-                $this.removeClass('active');
+                $('content').css('width', $(window).width() - 50);
             }
-        });
-    }
+
+        },
+        complete: function () {
+            $toggleBtn.find('i').toggleClass('bi-text-indent-left bi-text-indent-right');
+        }
+    });
+});
+
+function setActiveLinkInList($list) {
+    currentUrl = window.location.href;
+    $list.find('li a').each(function () {
+        var $this = $(this);
+        var href = new URL($this.attr('href'), currentUrl).toString();
+        if (href === currentUrl || href === currentUrl + 'index.html') {
+            $this.addClass('active');
+            if ($listElement.data('changetitle') != false) {
+                document.title = $this.text() + ' - ' + tempTitle;
+            }
+        } else {
+            $this.removeClass('active');
+        }
+    });
+}
 
 async function fetchJson(url) {
     try {
@@ -64,23 +68,27 @@ async function mergeAndAddProjects($list, newJsonData) {
     newJsonData.forEach(item => {
         var $element;
         if (item.type === 'link') {
-            $element = $('<a>', {href: item.href, text: item.text, 
-            click: function(e) {
-                if ($('lead').data('useAjax') === false) {
-                    window.location.href = item.href;
-                } else {
-                e.preventDefault();
-                fetchAndReplaceContent(item.href, 'content', 'content');
-                history.pushState('', '', item.href);
-                setActiveLinkInList($('.list'));
+            $element = $('<a>', {
+                href: item.href, html: item.text,
+                click: function (e) {
+                    if ($('lead').data('useajax') == false) {
+                        window.location.href = item.href;
+                    } else {
+                        e.preventDefault();
+                        fetchAndReplaceContent(item.href, 'content', 'content');
+                        history.pushState('', '', item.href);
+                        setActiveLinkInList($('.list'));
+                    }
                 }
-            }});
+            });
             if (new URL(item.href, window.location.href).toString() === currentUrl) {
-                document.title = item.text + ' - ' + document.title;
+                if ($listElement.data('changetitle') != false) {
+                    document.title = item.text + ' - ' + document.title;
+                }
                 $element.addClass('active');
             }
         } else if (item.type === 'text') {
-            $element = $('<span>', {text: item.text});
+            $element = $('<span>', { html: item.text });
         }
         $('<li>').append($element).appendTo($list);
     });
@@ -102,12 +110,19 @@ async function populateListWithJson($list, navFrom = '') {
 
     await mergeAndAddProjects($list, jsonData);
 }
+
+if ($lead.length) {
     var $listElement = $('.list');
     if ($listElement.length) {
         setActiveLinkInList($listElement);
-        populateListWithJson($listElement)
-            .then(() => console.log('列表项已成功从JSON文件加载并添加。'))
-            .catch(error => console.error('加载列表项时出错:', error));
+        if ($listElement.data('loadfromfile') != false) {
+            populateListWithJson($listElement,$listElement.data('filename'))
+                .then(() => console.log('列表项已成功从JSON文件加载并添加。'))
+                .catch(error => console.error('加载列表项时出错:', error));
+        }
     } else {
         console.log('未找到.class为list的ul元素，激活链接操作及列表项加载被忽略。');
     }
+} else {
+    console.log('未找到<lead>元素，侧栏创建操作被忽略。');
+}

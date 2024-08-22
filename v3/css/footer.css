@@ -1,0 +1,36 @@
+/* 腾瑞思智 用户界面样式 版本3*/
+/* Created By PYLXU */
+
+/* Footer部分 */
+footer {
+  background-color: #f8f9fa; 
+  color: #6c757d; 
+  padding: 2rem 1rem; 
+  text-align: center;
+  font-size: 1.5rem; 
+  border-top: 1px solid #dee2e6;
+  width: 100%;
+  position: absolute;
+  left: 0px;
+}
+/* 页脚链接样式 */
+footer ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 1rem; 
+}
+footer li {
+  display: inline-block;
+  margin-right: 1rem; 
+}
+footer a {
+  color: inherit; 
+  transition: color 0.3s ease;
+}
+footer a:hover {
+  color: #007bff;
+}
+footer p {
+  margin-top: 0;
+  font-size: 1.4rem;
+}

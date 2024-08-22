@@ -1,14 +1,15 @@
 function createTopBar(topbarElement) {
-    var title = topbarElement.data('title') || defaultTitle,
-        navItems =  defaultNavItems || JSON.parse(topbarElement.data('navItems')),
-        navRightItems = defaultNavRightItems || JSON.parse(topbarElement.data('navRightItems'));
+    var title = topbarElement.data('title') ? topbarElement.data('title') : defaultTitle,
+        navItems = topbarElement.data('navitems') ? topbarElement.data('navitems') : defaultNavItems,
+        navRightItems = topbarElement.data('navrightitems') ? topbarElement.data('navrightitems') : defaultNavRightItems,
+        homeUrl = topbarElement.data('homeurl') ? topbarElement.data('homeurl') : window.location.origin;
 
     navRightItems.push({
         text: '<i class="bi bi-gear-fill"></i>',
         href: `javascript:createDialog('set', 'primary', '站点偏好', '设置站点默认行为');`
     });
 
-    if ($(window).width() <= 768) {
+    if ($(window).width() <= 768 && topbarElement.data('showexpendbutton') !== false) {
         navRightItems.push({
             text: '<span class="device_OnlyPhone"><i class="bi bi-list"></i></span>',
             href: `javascript:expandNewTopBar();`
@@ -18,24 +19,10 @@ function createTopBar(topbarElement) {
     // 创建标题部分
     $('<h1/>', {
         'class': 'navLeft',
+        'id': 'pageTitle',
         html: $('<a/>', {
-            href: window.location.origin,
-            text: title,
-            click: function(e) {
-                    e.preventDefault();
-                    document.title = webTitle;
-                    history.pushState('', '', window.location.origin+"/");
-                    setActiveLinkInTopbar($('topbar'));
-                    fetchAndReplaceContent(window.location.origin, 'main', 'main',()=>{
-                        reloadScript(assetsURL + "/moudle/m_lead.js");
-                        reloadScript(assetsURL + "/moudle/m_footer.js");
-                        if($("lead").length > 0) {
-                            $("main").addClass('flex pb-0');
-                        } else {
-                            $("main").removeClass('flex pb-0');
-                        }
-                    });
-                }
+            href: homeUrl,
+            html: title,
         })
     }).appendTo(topbarElement);
 
@@ -43,7 +30,8 @@ function createTopBar(topbarElement) {
     var navLeft = $('<ul/>', {'class': 'navCenter'}).appendTo(topbarElement);
     navItems.forEach(function(item) {
         if (window.location.href.indexOf(item.href) !== -1) {
-             document.title = item.text + ' | ' + webTitle;
+            var cleanedText = item.text.replace(/<i[^>]*?>.*?<\/i>|&nbsp;/gi, ''); 
+            document.title = cleanedText.trim() + ' | ' + webTitle;
         }
         $('<li/>', {
             html: $('<a/>', {
@@ -51,8 +39,9 @@ function createTopBar(topbarElement) {
                 html: item.text,
                 click: function(e) {
                     e.preventDefault();
-                    document.title = item.text + ' | ' + webTitle;
-                    history.pushState('', '', item.href+"/");
+                    var cleanedText = item.text.replace(/<i[^>]*?>.*?<\/i>|&nbsp;/gi, ''); 
+                    document.title = cleanedText.trim() + ' | ' + webTitle;
+                    history.pushState('', '', item.href + '/');
                     setActiveLinkInTopbar($('topbar'));
                     fetchAndReplaceContent(item.href, 'main', 'main',()=>{
                         reloadScript(assetsURL + "/moudle/m_lead.js");
@@ -61,6 +50,9 @@ function createTopBar(topbarElement) {
                             $("main").addClass('flex pb-0');
                         } else {
                             $("main").removeClass('flex pb-0');
+                        }
+                        if (topbarElement.data('loadcallback')) {
+                            window[topbarElement.data('loadcallback')]();
                         }
                     });
                 }
@@ -104,7 +96,7 @@ function expandNewTopBar() {
         $('#miniNavBar').remove();
         showMiniTopbar = false;
     } else {
-        var navItems =  defaultNavItems || JSON.parse(topbarElement.data('navItems'));
+        var navItems = $('topbar').data('navitems') ? $('topbar').data('navitems') : defaultNavItems;
         var miniNavBar = $('<div/>', {
             id: 'miniNavBar',
             'class': 'miniNavBar'
@@ -112,7 +104,7 @@ function expandNewTopBar() {
             navItems.map(function(item) {
                 return $('<li/>').append($('<a/>', {
                     href: item.href,
-                    text: item.text,
+                    html: item.text,
                     class: (window.location.href.includes(item.href)) ? 'active' : ''
                 }));
             })
@@ -121,9 +113,54 @@ function expandNewTopBar() {
     }
 }
 
+function addButtonToNavRight(iconClass, buttonText, linkHref, onClickJs) {
+    var topbarElement = $('topbar');
+    if (topbarElement.length) {
+        var navRight = topbarElement.find('.navRight');
+        if (navRight.length) {
+            var newButton = $('<li/>')
+                .append($('<a/>', {
+                    href: linkHref || '#',
+                    html: `<i class="${iconClass}"></i>${buttonText || ''}`,
+                    click: function(e) {
+                        e.preventDefault();
+                        if (typeof onClickJs === 'function') {
+                            onClickJs.call(this, e);
+                        } else if (onClickJs) {
+                            eval(onClickJs); 
+                        }
+                    }
+                }));
+            navRight.append(newButton);
+        } else {
+            console.warn('右侧导航栏元素未找到。');
+        }
+    } else {
+        console.warn('顶级导航栏元素未找到。');
+    }
+}
+
+function insertElementToNav(htmlContent, position) {
+    var topbarElement = $('topbar');
+    if (topbarElement.length) {
+        var navRight = topbarElement.find('.navRight');
+        if (navRight.length) {
+            if (position == 'left') {
+                navRight.prepend(htmlContent);
+            } else {
+                navRight.append(htmlContent);
+            }
+        } else {
+            console.warn('右侧导航栏元素未找到。');
+        }
+    } else {
+        console.warn('顶级导航栏元素未找到。');
+    }
+}
+
 $('document').ready(function() {
     var topbarElement = $('topbar');
-    if (topbarElement.length && topbarElement.data('noReplace') !== 'true') {
+    if (topbarElement.length && topbarElement.data('noreplace') !== 'true') {
         topbarElement.empty();
         createTopBar(topbarElement);
     } else {

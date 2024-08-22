@@ -17,8 +17,17 @@ function dialog_CreateType(text, typeRequire, theme) {
 }
 
 function createDialog(type, theme, title, content, onConfirm, onCancel, typeRequire, typeNotice) {
-  const $dialogOverlay = $('<div>').addClass('dialog-overlay');
-  const $dialogBox = $('<div>').addClass('dialog-box').css('borderTopColor', `var(--color-${theme})`);
+  // 生成随机数作为 ID
+  const dialogId = Math.floor(Math.random() * 1000000); // 假设这足够唯一
+
+  const $dialogOverlay = $('<div>')
+    .addClass('dialog-overlay')
+    .addClass(`${dialogId}_overlay`);
+
+  const $dialogBox = $('<div>')
+    .addClass('dialog-box')
+    .addClass(`${dialogId}_box`)
+    .css('borderTopColor', `var(--color-${theme})`);
 
   const $header = $('<div>').addClass('dialog-header');
   const $headerText = $('<h3>').text(title);
@@ -68,16 +77,30 @@ function createDialog(type, theme, title, content, onConfirm, onCancel, typeRequ
       break;
     case 'set':
       $footer.html(`
+      <div class="flex" style="flex-direction: column;text-align:left">
+      <span>网页主题：</span>
         <select id="set_colorMode" class="textEditor" name="set_colorMode">
-          <option value="auto" ${getCookie('colorMode') === 'auto' || getCookie('colorMode') === '' ? 'selected' : ''}>跟随系统</option>
-          <option value="light" ${getCookie('colorMode') === 'light' ? 'selected' : ''}>浅色模式</option>
-          <option value="dark" ${getCookie('colorMode') === 'dark' ? 'selected' : ''}>深色模式</option>
+          <option value="auto" ${getCookie('set_colorMode') === 'auto' || getCookie('colorMode') === '' ? 'selected' : ''}>深浅自适应</option>
+          <option value="light" ${getCookie('set_colorMode') === 'light' ? 'selected' : ''}>浅色主题</option>
+          <option value="dark" ${getCookie('set_colorMode') === 'dark' ? 'selected' : ''}>深色主题</option>
+          <option value="diy:ios" ${getCookie('set_colorMode') === 'diy:ios' ? 'selected' : ''}>怀旧</option>
+          <option value="diy:new" ${getCookie('set_colorMode') === 'diy:new' ? 'selected' : ''}>新生</option>
         </select>
+      <span>进度条：</span>
+        <select id="set_progressBar" class="textEditor" name="set_progressBar">
+          <option value="default" ${getCookie('set_progressBar') === 'default' ? 'selected' : ''}>始终显示</option>
+          <option value="deny" ${getCookie('set_progressBar') === 'deny' ? 'selected' : ''}>禁用进度条</option>
+        </select>
+        </div>
       `);
-      $footer.append($('<br>'));
       $footer.append(dialog_CreateButton('保存设定', () => {
+        const setProgressBarIndex = $('#set_progressBar').prop('selectedIndex');
         const setColorModeIndex = $('#set_colorMode').prop('selectedIndex');
         colorMode($('#set_colorMode option').eq(setColorModeIndex).val());
+        setCookie('set_progressBar',
+        $('#set_progressBar option').eq(setProgressBarIndex).val(),
+        3650
+        , document.domain.split('.').slice(-2).join('.'));
         createMessage('偏好设置修改成功', 'success');
         hideDialog($dialogOverlay, $dialogBox);
         onConfirm && onConfirm();
@@ -86,26 +109,37 @@ function createDialog(type, theme, title, content, onConfirm, onCancel, typeRequ
   }
 
   $dialogBox.append($header).append($body).append($footer);
-
+    
   $('body').append($dialogOverlay).append($dialogBox);
+ 
+ return dialogId;
 }
 
-const $messageContainer = $('<div>').addClass('message-container');
-$('body').append($messageContainer);
-
-let messageCounter = 0;
-
-function createMessage(content, theme, duration = 3000) {
-  const $message = $('<div>').addClass(`message message-${theme}`).text(content);
+const $messageContainer = $('<div>').addClass('message-container').appendTo('body');
+let activeMessagesCount = 0;
+function createMessage(content, theme, duration = 3000, autoClose = true) {
+  const $message = $('<div>')
+    .addClass(`message message-${theme}`)
+    .html(content)
+    .hide();
+  if ($('topbar').length <= 0) {
+      $messageContainer.css('top', '10px')
+  }
   $messageContainer.css('right', '20px').append($message);
-  messageCounter++;
-  setTimeout(() => {
-    messageCounter--;
-    setTimeout(() => $message.remove(), 300);
-    if (messageCounter === 0) {
-      $messageContainer.css('right', '-300px');
-    }
-  }, duration);
+  $message.fadeIn();
+  activeMessagesCount++;
+
+  if (autoClose) {
+    setTimeout(() => {
+      activeMessagesCount--;
+      $message.fadeOut(300, () => {
+        $message.remove();
+      });
+      if (activeMessagesCount === 0) {
+        $messageContainer.css('right', '-300px');
+      }
+    }, duration);
+  }
 }
 
 function hideDialog($overlay, $box) {

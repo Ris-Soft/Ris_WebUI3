@@ -1,0 +1,100 @@
+/* 腾瑞思智 用户界面样式 版本3*/
+/* Created By PYLXU */
+
+/* 编辑框样式 */
+.textEditor {
+  box-sizing:border-box;
+  padding: 8px;
+  /* box-shadow: 0 2px 6px rgba(0,0,0,0.2); */
+    display: inline-block;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+    background-color: transparent;
+}
+.textEditor-maxWidth {
+    max-width: 620px;
+}
+.textEditor:focus {
+    outline: none;
+}
+.textEditor-primary:focus {
+  border: 1px solid var(--color-primary);
+}
+.textEditor-danger:focus {
+  border: 1px solid var(--color-danger);
+}
+.textEditor-success:focus {
+  border: 1px solid var(--color-success);
+}
+.textEditor option:focus {
+    background-color: var(--color-success);
+    border-radius: 5px;
+    color: white;
+}
+
+/*选择框*/
+/* 隐藏原始的 checkbox */
+.checkbox-container input[type="checkbox"] {
+  display: none;
+}
+
+/* 自定义 checkbox 的样式 */
+.checkbox-container label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  user-select: none;
+}
+
+/* 创建一个自定义的 checkbox 外观 */
+.checkbox-container label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  border: 2px solid #ccc;
+  transition: all 0.2s ease; /* 添加过渡效果 */
+}
+
+/* 当 checkbox 被选中时改变样式 */
+.checkbox-container input[type="checkbox"]:checked + label:before {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+/* 添加一个勾号图标当 checkbox 被选中 */
+.checkbox-container input[type="checkbox"]:checked + label:after {
+  content: "\2713";
+  position: absolute;
+  top: 2px;
+  left: 7px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease; /* 添加过渡效果 */
+  opacity: 0; /* 开始时隐藏勾号 */
+}
+
+/* 动画: 逐渐显示勾号 */
+@keyframes fadeInCheckmark {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 应用动画 */
+.checkbox-container input[type="checkbox"]:checked + label:after {
+  animation: fadeInCheckmark 0.2s forwards; /* 动画名称, 持续时间, 动画完成后的状态 */
+}

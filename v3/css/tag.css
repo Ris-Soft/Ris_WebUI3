@@ -1,0 +1,36 @@
+/* 腾瑞思智 用户界面样式 版本3 按钮样式 */
+/* Created By PYLXU */
+
+.tag {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.tag-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tag-primary {
+  background-color: var(--color-primary);
+}
+
+.tag-danger {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.tag-success {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.tag-white {
+  background-color: rgba(200,200,200,.3);
+  color: #666;
+}
+
+.tag-warning {
+  background-color: var(--color-warning);
+  color: white;
+}
+

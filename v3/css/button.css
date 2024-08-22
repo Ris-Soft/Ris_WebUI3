@@ -48,6 +48,11 @@
   border: 1px solid var(--color-success);
   color: var(--color-success);
 }
+.btn-warning-e {
+  background-color: transparent;
+  border: 1px solid var(--color-warning);
+  color: var(--color-warning);
+}
 
 .btn-primary {
   background-color: var(--color-primary);
@@ -68,9 +73,15 @@
 }
 
 .btn-white {
-  background-color:  rgba(231, 231, 231, 1);
+  background-color:  white;
   border: 1px solid  rgba(231, 231, 231, 1);
   color: black;
+}
+
+.btn-warning {
+  background-color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+  color: white;
 }
 
 /* 鼠标悬停时改变透明度和稍微改变阴影，增加互动感 */

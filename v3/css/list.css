@@ -1,0 +1,37 @@
+/* 腾瑞思智 用户界面样式 版本3*/
+/* Created By PYLXU */
+
+.list {
+list-style-type: none;
+list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    height: calc(100% - 80px);
+}
+.list ul{
+  list-style: none;
+}
+.list li a{
+  padding: 10px 20px; /* 内边距使点击区域更舒适 */
+  cursor: pointer; /* 鼠标悬停时改变指针形状 */
+  transition: background-color 0.3s ease; /* 平滑过渡背景颜色 */
+  color: #2b2b2b;
+    display: block;
+    text-decoration: none;
+    margin: 4px 15px;
+    border-radius: 5px;
+}
+.list li a:hover {
+  color: #16b777;
+  background-color: rgba(0, 0, 0, 0.1); /* 鼠标悬停时的背景色 */
+}
+.list span {
+  margin: 15px 0px 20px 20px;
+  font-size: 12px;
+}
+/* 目录项激活状态（例如，当前页面对应的链接） */
+.list li a.active {
+  color: white;
+  background-color: var(--color-success); /* 激活状态的背景色 */
+}

@@ -1,14 +1,7 @@
 function createFooter(footerElement) {
     // 设置默认参数
-    let footerLinks = defaultFooterLinks;
-    if (footerElement.data('links')) {
-        footerLinks = JSON.parse(footerElement.data('links'));
-    }
-
-    let copyrightInfo = defaultCopyright;
-    if (footerElement.data('copyright')) {
-        copyrightInfo = footerElement.data('copyright');
-    }
+    let footerLinks = footerElement.data('links') ? footerElement.data('links') : defaultFooterLinks;
+    let copyrightInfo = footerElement.data('copyright') ? footerElement.data('copyright') : defaultCopyright;
 
     // 清空现有内容
     footerElement.empty();
@@ -18,13 +11,13 @@ function createFooter(footerElement) {
     footerLinks.forEach(link => {
         $('<li>').append($('<a>', {
             href: link.href || '#',
-            text: link.text || '链接'
+            text: link.html || '链接'
         })).appendTo(linksList);
     });
 
     // 创建版权信息段落
     const copyrightPara = $('<p>', {
-        text: copyrightInfo
+        html: copyrightInfo
     });
 
     // 将链接列表和版权信息添加到页脚元素
